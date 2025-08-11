@@ -1,0 +1,32 @@
+import React, {useEffect} from 'react';
+import { View, ImageBackground, Image, Text, StyleSheet } from 'react-native';
+import HomeScreen from './HomeScreen';
+
+export default function SplashScreen({navigation}) {
+  const [showHome, setShowHome] = React.useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowHome(true), 3000);
+    return () => clearTimeout(t);
+  }, []);
+
+  if (showHome) return <HomeScreen />;
+
+  return (
+    <ImageBackground source={require('../assets/images/splash.png')} style={styles.bg}>
+      <View style={styles.center}>
+        <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+        <Text style={styles.verse}>"Cantaré al Señor toda mi vida; cantaré salmos a mi Dios mientras tenga aliento."</Text>
+        <Text style={styles.ref}>Salmo 104:33</Text>
+      </View>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  bg: {flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'#000'},
+  center: {alignItems:'center', paddingHorizontal:20},
+  logo: {width:140, height:140, marginBottom:20},
+  verse: {color:'#FFD700', fontSize:18, textAlign:'center', fontWeight:'600', textShadowColor:'rgba(0,0,0,0.4)', textShadowOffset:{width:0,height:2}, textShadowRadius:6},
+  ref: {color:'#fff', marginTop:8}
+});
